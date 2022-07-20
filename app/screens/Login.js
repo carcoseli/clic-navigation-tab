@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
 
 export default function Login(props) {
     const {navigation} = props;
@@ -7,8 +8,8 @@ export default function Login(props) {
     const [password, setPassword] = useState(null);
 
     const login = () => {
-        
-        console.log(props);
+        //ponemos el nombre de nuestra pantalla en este caso Main
+        navigation.navigate("Main");
     }
 
     return (
@@ -17,6 +18,7 @@ export default function Login(props) {
                 style={styles.tinyLogo}
                 source={require('../../assets/logo.png')}
             />
+            <Text style={styles.title}>LOGIN</Text>
             <Text style={styles.title}>Compra Fácil y Rápido</Text>
             <TextInput
                 style={styles.input}

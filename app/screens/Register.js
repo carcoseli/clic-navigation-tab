@@ -16,6 +16,7 @@ export default function Register(props) {
                 style={styles.tinyLogo}
                 source={require('../../assets/logo.png')}
             />
+            <Text style={styles.title}>REGISTER</Text>
             <Text style={styles.title}>Compra Fácil y Rápido</Text>
             <TextInput
                 style={styles.input}
