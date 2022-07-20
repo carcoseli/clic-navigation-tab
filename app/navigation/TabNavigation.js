@@ -44,11 +44,6 @@ export default function TabNavigation() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Home") {
-            iconName = focused ? "ios-home" : "ios-home-outline";
-          } else if (route.name === "Settings") {
-            iconName = focused ? "ios-settings" : "ios-settings-outline";
-          }
           switch (route.name) {
             case "Home":
               iconName = focused ? "ios-home" : "ios-home-outline";
