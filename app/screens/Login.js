@@ -1,15 +1,20 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
 import TabNavigation from "../navigation/TabNavigation";
 
 export default function Login(props) {
-    const {navigation} = props;
+    const { navigation } = props;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
         //ponemos el nombre de nuestra pantalla en este caso Main
-        navigation.navigate("Main");
+        if (email == 'Santi' && password == 123) {
+            Alert.alert("BIENVENIDO: ",email);
+            navigation.navigate("Main"); //ver Navigation la clase que importamos como TabNav
+        } else {
+            Alert.alert("ERROR! - CONTRASEÑAS o USUARIO INVÁLIDO");
+        }
     }
 
     return (
@@ -39,8 +44,9 @@ export default function Login(props) {
             >
                 <Text style={styles.textButton}>Iniciar Sesión</Text>
             </Pressable>
-            <Text onPress={() => navigation.navigate("Register")} 
-            style={styles.link}>¿No tienes una cuenta?</Text>
+            <Text
+                onPress={() => navigation.navigate("Register")}
+                style={styles.link}>¿No tienes una cuenta?</Text>
         </View>
     );
 
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
+    title: {
         marginBottom: 50,
     },
     input: {
@@ -88,8 +94,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });

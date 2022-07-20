@@ -3,7 +3,16 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeScreen from '../screens/Main/HomeScreen'; //si vinculo a otras clases externas importo sino no
+import SettingsScreen from '../screens/Main/SettingsScreen';
+import BuscarScreen from '../screens/Main/BuscarScreen';
+import PerfilScreen from '../screens/Main/PerfilScreen';
 
+
+import Login from '../screens/Login';
+
+/*
+//Si vinculo en la misma clase por medio de una funcion agrego lo siguiente sino importo 
 function HomeScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -34,7 +43,7 @@ function BuscarScreen() {
             <Text>Buscar!</Text>
         </View>
     );
-}
+}*/
 
 const Tab = createBottomTabNavigator();
 
@@ -62,6 +71,10 @@ export default function TabNavigation() {
                         iconName = focused
                             ? 'search'
                             : 'search-outline';
+                    }else if (route.name === 'Login') {
+                        iconName = focused
+                            ? 'flash'
+                            : 'flash-outline';
                     }
 
                     // You can return any component that you like here!
@@ -72,9 +85,10 @@ export default function TabNavigation() {
             })}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Perfil" component={PerfilScreen} />
-            <Tab.Screen name="Buscar" component={BuscarScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} options={{headerShown: true}}/>
+            <Tab.Screen name="Buscar" component={BuscarScreen} options={{headerShown: true}}/>
+            <Tab.Screen name="Perfil" component={PerfilScreen} options={{headerShown: true}}/>
+           
 
         </Tab.Navigator>
 

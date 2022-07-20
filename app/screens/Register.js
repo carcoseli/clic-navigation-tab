@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
 
 export default function Register(props) {
-    const {navigate} = props.navigation;
+    const { navigation } = props;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-  
+
     const registrar = () => {
-        console.log(props);
+        navigation.navigate("Login"); 
     }
 
     return (
@@ -37,8 +38,9 @@ export default function Register(props) {
             >
                 <Text style={styles.textButton}>Registrar</Text>
             </Pressable>
-            <Text onPress={() => navigate("Login")} 
-            style={styles.link}>¿Ya tienes una cuenta?</Text>
+            <Text
+                onPress={() => navigation.navigate("Login")}
+                style={styles.link}>¿Ya tienes una cuenta?</Text>
         </View>
     );
 
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
+    title: {
         marginBottom: 50,
     },
     input: {
@@ -85,8 +87,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });
