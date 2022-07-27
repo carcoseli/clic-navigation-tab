@@ -2,38 +2,13 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-function SearchScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Buscar!</Text>
-    </View>
-  );
-}
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Perfil!</Text>
-    </View>
-  );
-}
-
+import HomeScreen from "../screens/Main/HomeScreen";
+import SettingsScreen from "../screens/Main/SettingsScreen";
+import SearchScreen from "../screens/Main/SearchScreen";
+import HealthScreen from "../screens/Main/HealthScreen";
+import ShoppingScreen from "../screens/Main/ShoppingScreen";
+import UserProfileScreen from "../screens/Main/UserProfileScreen";
+import AddScreen from "../screens/Main/AddScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,16 +21,22 @@ export default function TabNavigation() {
 
           switch (route.name) {
             case "Home":
-              iconName = focused ? "ios-home" : "ios-home-outline";
+              iconName = focused ? "ios-square" : "ios-square-outline";
               break;
-            case "Settings":
-              iconName = focused ? "ios-settings" : "ios-settings-outline";
+            case "Add":
+              iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
               break;
             case "Search":
               iconName = focused ? "ios-search" : "ios-search-outline";
               break;
             case "Profile":
               iconName = focused ? "ios-person" : "ios-person-outline";
+              break;
+            case "Health":
+              iconName = focused ? "ios-heart" : "ios-heart-outline";
+              break;
+            case "Shopping":
+              iconName = focused ? "ios-cart" : "ios-cart-outline";
               break;
 
             default:
@@ -70,9 +51,11 @@ export default function TabNavigation() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Health" component={HealthScreen} />
+      <Tab.Screen name="Shopping" component={ShoppingScreen} />
+      <Tab.Screen name="Add" component={AddScreen} />
+      <Tab.Screen name="Profile" component={UserProfileScreen} />
     </Tab.Navigator>
   );
 }
