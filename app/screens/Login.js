@@ -1,44 +1,62 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
 
 export default function Login(props) {
-    const {navigation} = props;
-    const [email, setEmail] = useState(null);
+    const { navigation } = props;
+    const [user, setUser] = useState(null);
     const [password, setPassword] = useState(null);
+    
 
     const login = () => {
-        
-        console.log(props);
+        //ponemos el nombre de nuestra pantalla en este caso Main
+        if (user == 'Santi' && password == 123) {
+            Alert.alert("BIENVENIDO: ",user);
+            navigation.navigate("Main"); //ver Navigation la clase que importamos como TabNav
+        } else {
+            Alert.alert("ERROR! - CONTRASEÑAS o USUARIO INVÁLIDO");
+        }
     }
 
     return (
         <View style={styles.container}>
             <Image
                 style={styles.tinyLogo}
-                source={require('../../assets/logo.png')}
+                source={require('../../assets/login.png')}
             />
-            <Text style={styles.title}>Compra Fácil y Rápido</Text>
+            <Text style={styles.title}>LOGIN</Text>
+            
             <TextInput
                 style={styles.input}
-                placeholder="Correo Electrónico"
-                onChangeText={(value) => setEmail(value)}
-                value={email}
+                placeholder="Username"
+                onChangeText={(value) => setUser(value)}
+                value={user}
             />
             <TextInput
                 style={styles.input}
-                placeholder="Contraseña"
+                placeholder="Password"
                 onChangeText={(value) => setPassword(value)}
                 secureTextEntry={true}
                 value={password}
             />
+            
+            <Text style={styles.link3}>Forgot Password or account?</Text>
+
+            <Text
+                onPress={() => navigation.navigate("Register")}
+                style={styles.link}>Create account</Text>
+
+            <Text style={styles.link2}>Remember me</Text>
+
             <Pressable
                 onPress={login}
                 style={styles.button}
             >
-                <Text style={styles.textButton}>Iniciar Sesión</Text>
+                <Image
+                //source={require('../../assets/mp.png')}
+                />
+            <Text style={styles.textButton}>LOGIN</Text>
             </Pressable>
-            <Text onPress={() => navigation.navigate("Register")} 
-            style={styles.link}>¿No tienes una cuenta?</Text>
         </View>
     );
 
@@ -52,13 +70,14 @@ const styles = StyleSheet.create({
         //justifyContent: 'center',
     },
     tinyLogo: {
+        
         width: 250,
-        height: 125,
+        height: 250,
         marginTop: 100,
-        marginBottom: 30,
+        marginBottom: 1,
     },
-    title:{
-        marginBottom: 50,
+    title: {
+        marginBottom: 10,
     },
     input: {
         marginTop: 20,
@@ -70,8 +89,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     button: {
-        marginTop: 30,
-        marginBottom: 30,
+        marginTop: 20,
+        marginBottom: 20,
         padding: 10,
         backgroundColor: "#02CCFF",
         borderRadius: 7,
@@ -86,8 +105,22 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 10,
+        marginBottom: 5,
+        color: "#02CCFF",
+        fontWeight: "bold",
+    },
+    link2: {
+        marginTop: 20,
+        marginBottom: 20,
+        color: "black",//02CCFF
+        fontWeight: "bold",
+        fontSize:25,
+    },
+    link3: {
+        marginTop: 10,
+        marginBottom: 5,
+        color: "black",//02CCFF
         fontWeight: "bold",
     }
 });

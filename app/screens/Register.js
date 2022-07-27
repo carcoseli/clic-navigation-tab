@@ -1,27 +1,36 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
 
 export default function Register(props) {
-    const {navigate} = props.navigation;
-    const [email, setEmail] = useState(null);
+    const { navigation } = props;
+    const [username, setUserName] = useState(null);
     const [password, setPassword] = useState(null);
-  
+    const [edad, setEdad] = useState(null);
+    const [pais, setPais] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [tlf, setTlf] = useState(null);
+
+
+
     const registrar = () => {
-        console.log(props);
+        Alert.alert("Registro Exitoso");
+        navigation.navigate("Login");
     }
 
     return (
         <View style={styles.container}>
             <Image
                 style={styles.tinyLogo}
-                source={require('../../assets/logo.png')}
+                source={require('../../assets/mp.png')}
             />
-            <Text style={styles.title}>Compra Fácil y Rápido</Text>
+            <Text style={styles.title}>NEW USER - Fill the blocks</Text>
+
             <TextInput
                 style={styles.input}
-                placeholder="Correo Electrónico"
-                onChangeText={(value) => setEmail(value)}
-                value={email}
+                placeholder="Username"
+                onChangeText={(value) => setUserName(value)}
+                value={username}
             />
             <TextInput
                 style={styles.input}
@@ -30,14 +39,43 @@ export default function Register(props) {
                 secureTextEntry={true}
                 value={password}
             />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Edad"
+                onChangeText={(value) => setEdad(value)}
+                value={edad}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Pais"
+                onChangeText={(value) => setPais(value)}
+                value={pais}
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Mail"
+                onChangeText={(value) => setEmail(value)}
+                value={email}
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Phone"
+                onChangeText={(value) => setTlf(value)}
+                value={tlf}
+            />
+
             <Pressable
                 onPress={registrar}
                 style={styles.button}
             >
-                <Text style={styles.textButton}>Registrar</Text>
+                <Text style={styles.textButton}>Create Account!</Text>
             </Pressable>
-            <Text onPress={() => navigate("Login")} 
-            style={styles.link}>¿Ya tienes una cuenta?</Text>
+            <Text
+                onPress={() => navigation.navigate("Login")}
+                style={styles.link}>¿Ya tienes una cuenta?</Text>
         </View>
     );
 
@@ -52,15 +90,17 @@ const styles = StyleSheet.create({
     },
     tinyLogo: {
         width: 250,
-        height: 125,
+        height: 170,
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
-        marginBottom: 50,
+    title: {
+        marginBottom: 5,
+        color: "red",
+        fontSize: 25,
     },
     input: {
-        marginTop: 20,
+        marginTop: 5,
         borderWidth: 1,
         width: 300,
         height: 40,
@@ -84,8 +124,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });
