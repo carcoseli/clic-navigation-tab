@@ -12,20 +12,36 @@ function HomeScreen() {
   );
 }
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
 function Search() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Search!</Text>
       </View>
     );
+}
+
+function Favorites() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Favorites!</Text>
+    </View>
+  );
+}
+
+function Cart() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Cart!</Text>
+    </View>
+  );
+}
+
+function Add() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Add!</Text>
+    </View>
+  );
 }
 
 function UserProfile() {
@@ -46,13 +62,17 @@ export default function TabNavigation() {
         let iconName;
 
         if (route.name === 'Home') {
-          iconName = focused ? 'home': 'home-outline';
-        } else if (route.name === 'Settings') {
-          iconName = focused ? 'settings' : 'settings-outline';
-        }else if (route.name === 'Search') {
+          iconName = focused ? 'laptop': 'laptop-outline';
+        } else if (route.name === 'Search') {
           iconName = focused ? 'search' : 'search-outline';
+        }else if (route.name === 'Favorites') {
+          iconName = focused ? 'heart' : 'heart-outline';
+        }else if (route.name === 'Cart') {
+          iconName = focused ? 'cart' : 'cart-outline';
+        }else if (route.name === 'Add') {
+          iconName = focused ? 'add' : 'add-outline';
         }else if (route.name === 'UserProfile') {
-          iconName = focused ? 'contact' : 'contact-outline';
+          iconName = focused ? 'person' : 'person-outline';
         }
 
         // You can return any component that you like here!
@@ -63,8 +83,10 @@ export default function TabNavigation() {
     })}
   >
     <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Settings" component={SettingsScreen} />
     <Tab.Screen name="Search" component={Search} />
+    <Tab.Screen name="Favorites" component={Favorites} />
+    <Tab.Screen name="Cart" component={Cart} />
+    <Tab.Screen name="Add" component={Add} />
     <Tab.Screen name="UserProfile" component={UserProfile} />
   </Tab.Navigator>
   );
