@@ -9,6 +9,7 @@ import TabNavigation from './TabNavigation';
 const Stack = createNativeStackNavigator();
 
 //abajo se deben especificar las clases que se van a navegar
+//Solo llamamos a TabNavigation que contine 4 submenus
 export default function Navigation() {
   return (
     <NavigationContainer>

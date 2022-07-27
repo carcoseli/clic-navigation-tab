@@ -4,7 +4,7 @@ import React from 'react'
 export default function BuscarScreen() {
   return (
     <View>
-      <Text>Buscar</Text>
+      <Text>Suppliers</Text>
     </View>
   )
 }

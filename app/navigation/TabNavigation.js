@@ -1,49 +1,14 @@
+// este codigo fue creado de la pag: Reactnative Navigation -->Customizing the Appearance
+//esta clase solo vincula las clases por iconos 
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons'; //enlace copiado de RN Customizing the appearance
 import HomeScreen from '../screens/Main/HomeScreen'; //si vinculo a otras clases externas importo sino no
 import SettingsScreen from '../screens/Main/SettingsScreen';
 import BuscarScreen from '../screens/Main/BuscarScreen';
 import PerfilScreen from '../screens/Main/PerfilScreen';
 
-
-import Login from '../screens/Login';
-
-/*
-//Si vinculo en la misma clase por medio de una funcion agrego lo siguiente sino importo 
-function HomeScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home!</Text>
-        </View>
-    );
-}
-
-function SettingsScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Settings!</Text>
-        </View>
-    );
-}
-
-function PerfilScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Perfil USUARIO!</Text>
-        </View>
-    );
-}
-
-function BuscarScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Buscar!</Text>
-        </View>
-    );
-}*/
 
 const Tab = createBottomTabNavigator();
 
@@ -54,40 +19,31 @@ export default function TabNavigation() {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
+                    //Ingresamos rout.name por cada submenu inferior
 
-                    if (route.name === 'Home') {
-                        iconName = focused //operador terneario if else iconos
-                            ? 'home' //icono de web:pintado
-                            : 'home-outline'; //else: OUTLINE-> no pintado
-                    } else if (route.name === 'Settings') {
-                        iconName = focused
-                            ? 'settings'
-                            : 'settings-outline';
-                    } else if (route.name === 'Perfil') {
-                        iconName = focused
-                            ? 'person'
-                            : 'person-outline';
-                    } else if (route.name === 'Buscar') {
-                        iconName = focused
-                            ? 'search'
-                            : 'search-outline';
-                    }else if (route.name === 'Login') {
-                        iconName = focused
-                            ? 'flash'
-                            : 'flash-outline';
+                    if (route.name === 'Products') { //operador terneario, nombre de Tab.Screen
+                        iconName = focused 
+                            ? 'basket' //icono de web:pintado
+                            : 'basket-outline'; //else: OUTLINE-> no pintado
+                    } else if (route.name === 'Customers') {
+                        iconName = focused? 'man' : 'man-outline';
+                    } else if (route.name === 'Suppliers') {
+                        iconName = focused? 'business' : 'business-outline';
+                    }else if (route.name === 'Contact US') {
+                        iconName = focused? 'call': 'call-outline';
                     }
 
                     // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'green',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: 'green',// icono menu seleccionado
+                tabBarInactiveTintColor: 'gray', // icono menu no seleccionado
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} options={{headerShown: true}}/>
-            <Tab.Screen name="Buscar" component={BuscarScreen} options={{headerShown: true}}/>
-            <Tab.Screen name="Perfil" component={PerfilScreen} options={{headerShown: true}}/>
+            <Tab.Screen name="Products" component={HomeScreen} />
+            <Tab.Screen name="Customers" component={SettingsScreen} options={{headerShown: true}}/>
+            <Tab.Screen name="Suppliers" component={BuscarScreen} options={{headerShown: true}}/>
+            <Tab.Screen name="Contact US" component={PerfilScreen} options={{headerShown: true}}/>
            
 
         </Tab.Navigator>
