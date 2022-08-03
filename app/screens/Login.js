@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
 
 export default function Login(props) {
     const {navigation} = props;
@@ -8,7 +9,7 @@ export default function Login(props) {
 
     const login = () => {
         
-        console.log(props);
+        navigation.navigate("Main")
     }
 
     return (
