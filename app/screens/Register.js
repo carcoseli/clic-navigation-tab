@@ -1,12 +1,37 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../config/firebase";
 
 export default function Register(props) {
-    const {navigate} = props.navigation;
+    const { navigate } = props.navigation;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-  
+
     const registrar = () => {
+        if (!email) {
+            Alert.alert("Correo electronico es requerido");
+        } else if (!password) {
+            Alert.alert("Contraseña es requerido");
+        } else if (password.length < 6) {
+            Alert.alert("Contraseña requiere 6 o mas caracteres");
+        } else {
+            
+            createUserWithEmailAndPassword(authentication, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    Alert.alert("Usuario creado correctamente");
+                    // ...
+                    navigate('Login');
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                    Alert.alert(errorCode + errorMessage);
+                });
+        }
         console.log(props);
     }
 
@@ -36,8 +61,8 @@ export default function Register(props) {
             >
                 <Text style={styles.textButton}>Registrar</Text>
             </Pressable>
-            <Text onPress={() => navigate("Login")} 
-            style={styles.link}>¿Ya tienes una cuenta?</Text>
+            <Text onPress={() => navigate("Login")}
+                style={styles.link}>¿Ya tienes una cuenta?</Text>
         </View>
     );
 
@@ -56,7 +81,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
+    title: {
         marginBottom: 50,
     },
     input: {
@@ -84,8 +109,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });
