@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
 
-export default function Login(props) {
-    const {navigation} = props;
+export default function Login({navigation}) {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
-        
-        console.log(props);
+        //aqui realiza la implementacion de firebase
+        navigation.navigate('Main');
     }
 
     return (
