@@ -1,16 +1,40 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
-import TabNavigation from "../navigation/TabNavigation";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { autentication } from "../config/firebase";
 
 export default function Login(props) {
-    const {navigation} = props;
+    const { navigate } = props.navigation;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
-        
-        navigation.navigate("Main");
+        if (!email) {
+            Alert.alert("Correo electronico es requerido")
+
+        } else if (!password) {
+
+            Alert.alert("cotraseña es requerida")
+        } else if (password.lenght <= 6) {
+            Alert.alert("Contraseña minimo 6 caraecteres")
+        } else {
+            //codigo copiado de documentacion
+
+            signInWithEmailAndPassword(autentication, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    Alert.alert("bienbenido")
+                    navigate("Main")
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    Alert.alert(errorCode + errorMessage)
+                });
+        }
+
     }
+
 
     return (
         <View style={styles.container}>
@@ -38,8 +62,8 @@ export default function Login(props) {
             >
                 <Text style={styles.textButton}>Iniciar Sesión</Text>
             </Pressable>
-            <Text onPress={() => navigation.navigate("Register")} 
-            style={styles.link}>¿No tienes una cuenta?</Text>
+            <Text onPress={() => navigate("Register")}
+                style={styles.link}>¿No tienes una cuenta?</Text>
         </View>
     );
 
@@ -58,7 +82,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
+    title: {
         marginBottom: 50,
     },
     input: {
@@ -87,8 +111,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });
