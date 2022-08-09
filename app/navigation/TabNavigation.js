@@ -3,54 +3,12 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function Search() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Search!</Text>
-      </View>
-    );
-}
-
-function Favorites() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Favorites!</Text>
-    </View>
-  );
-}
-
-function Cart() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Cart!</Text>
-    </View>
-  );
-}
-
-function Add() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Add!</Text>
-    </View>
-  );
-}
-
-function UserProfile() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>UserProfile!</Text>
-      </View>
-    );
-}
+import HomeScreen from "../screens/HomeScreen";
+import Search from "../screens/Search";
+import Favorites from "../screens/Favorites";
+import Cart from "../screens/Cart";
+import Add from "../screens/Add";
+import UserProfile from "../screens/UserProfile";
 
 const Tab = createBottomTabNavigator();
 

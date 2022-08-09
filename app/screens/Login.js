@@ -1,15 +1,38 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
 import TabNavigation from "../navigation/TabNavigation";
+//Import para inicio de sesion
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { autentication } from "../config/FireBase";
 
 export default function Login(props) {
     const {navigation} = props;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-
+//Clase para ingresar validando los usuarios y las contraseñas
     const login = () => {
+        console.log(props);
+        const auth = getAuth();
+        signInWithEmailAndPassword(autentication, email, password)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            const password=userCredential.password;
+            if (user===email && password===password) {
+                navigate("Main")
+            } else {
+                Alert.alert("NO TIENE UNA CUENTA");
+            }
+            
+            
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
         
-        navigation.navigate("Main")
+        
     }
 
     return (

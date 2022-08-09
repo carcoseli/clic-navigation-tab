@@ -1,14 +1,41 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert } from "react-native";
+import TabNavigation from "../navigation/TabNavigation";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { autentication } from "../config/FireBase";
+
 
 export default function Register(props) {
     const {navigate} = props.navigation;
+    //creacion de HOOKS de estado
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
   
     const registrar = () => {
         console.log(props);
+        if (!email) {
+            Alert.alert("Correo electronico es requerido")
+        } else if(!password){
+            Alert.alert("Contraseña es requerido")
+        } else if(password.lenght <=6 ){
+            Alert.alert("Contraseña mínimo 6 caracteres")
+        } else {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(autentication, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                Alert.alert("Usuario creado correctamente");
+                navigate("Main")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert(errorCode+errorMessage);
+                // ..
+  });
+        }
     }
+    
 
     return (
         <View style={styles.container}>
