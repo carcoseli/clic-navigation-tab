@@ -23,7 +23,7 @@ const createProduct = async() => {
             productPrice: productPrice,
           });
           console.log('Creacion Correcta de Producto')
-          NativeModules.DevSettings.reload(); // recargar la pantalla
+          //NativeModules.DevSettings.reload(); // recargar la pantalla
     }
 }
 
