@@ -11,28 +11,9 @@ export default function Login(props) {
     const [password, setPassword] = useState(null);
 //Clase para ingresar validando los usuarios y las contraseñas
     const login = () => {
-        console.log(props);
-        const auth = getAuth();
-        signInWithEmailAndPassword(autentication, email, password)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            const password=userCredential.password;
-            if (user===email && password===password) {
-                navigate("Main")
-            } else {
-                Alert.alert("NO TIENE UNA CUENTA");
-            }
-            
-            
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          });
         
         
+          navigation.navigate("Main")
     }
 
     return (
@@ -64,9 +45,9 @@ export default function Login(props) {
             <Text onPress={() => navigation.navigate("Register")} 
             style={styles.link}>¿No tienes una cuenta?</Text>
         </View>
-    );
+    )
 
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -109,9 +90,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
     },
-    link: {
-        marginTop:20,
-        color:"#02CCFF",
-        fontWeight: "bold",
-    }
 });
