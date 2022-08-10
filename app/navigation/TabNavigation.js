@@ -8,6 +8,7 @@ import BuscarScreen from '../screens/Main/BuscarScreen';
 import PerfilScreen from '../screens/Main/PerfilScreen';
 import CarritoScreen from '../screens/Main/CarritoScreen';
 import FavoritosScreen from '../screens/Main/FavoritosScreen';
+import CreateScreen from '../screens/Main/CreateScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,10 @@ export default function TabNavigation() {
             iconName = focused ? 'cart' :'cart-outline'
           }else if(route.name==='Perfil Usuario'){
             iconName = focused ? 'person' :'person-outline'
-          }
+          }else if(route.name==='Create'){
+            iconName = focused ? 'add' :'add-outline'
+
+            }
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -43,7 +47,9 @@ export default function TabNavigation() {
       <Tab.Screen name="Buscar" component={BuscarScreen}/>
       <Tab.Screen name="Favoritos" component={FavoritosScreen} />
       <Tab.Screen name="Carrito" component={CarritoScreen} />
+      <Tab.Screen name="Create" component={CreateScreen} />
       <Tab.Screen name="Perfil Usuario" component={PerfilScreen} />
+      
       
       
     </Tab.Navigator>
