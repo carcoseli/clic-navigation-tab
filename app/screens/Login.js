@@ -1,13 +1,36 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert} from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../config/firebase";
+export default function Login({ navigation }) {
 
-export default function Login({navigation}) {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
         //aqui realiza la implementacion de firebase
-        navigation.navigate('Main');
+
+            signInWithEmailAndPassword(authentication, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                // ...
+        
+                navigation.navigate('Main');
+                Alert.alert("Acceso permitido");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert("Gmail o contraseña incorrecto");
+            });
+        
+            
+
+
+
+
+
     }
 
     return (
@@ -36,8 +59,8 @@ export default function Login({navigation}) {
             >
                 <Text style={styles.textButton}>Iniciar Sesión</Text>
             </Pressable>
-            <Text onPress={() => navigation.navigate("Register")} 
-            style={styles.link}>¿No tienes una cuenta?</Text>
+            <Text onPress={() => navigation.navigate("Register")}
+                style={styles.link}>¿No tienes una cuenta?</Text>
         </View>
     );
 
@@ -56,7 +79,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
     },
-    title:{
+    title: {
         marginBottom: 50,
     },
     input: {
@@ -85,8 +108,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     link: {
-        marginTop:20,
-        color:"#02CCFF",
+        marginTop: 20,
+        color: "#02CCFF",
         fontWeight: "bold",
     }
 });
