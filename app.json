@@ -1,5 +1,8 @@
 {
   "expo": {
+    "expo": {
+        "plugins": ["expo-image-picker"]
+      },
     "name": "clic-app",
     "slug": "clic-app",
     "version": "1.0.0",
@@ -29,5 +32,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+    
   }
 }

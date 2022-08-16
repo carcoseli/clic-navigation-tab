@@ -1,15 +1,19 @@
-import {View, Text, TextInput, StyleSheet, Image, Pressable, Alert, NativeModules} from 'react-native'
+import {View, Text, TextInput, StyleSheet, Image, Pressable, Alert, NativeModules, ScrollView, Button} from 'react-native'
 import React, { useState } from 'react'
 import { idGenerator } from '../../utils/idGenerator';
 import { doc, setDoc } from "firebase/firestore";
 import { async } from '@firebase/util';
 import { db } from '../config/FireBase';
 
+
+
+
 export default function Add(){
     //hooks 
         const [productName,setproductName]=useState('');
         const [productDescription,setproductDescription]=useState('');
         const [productPrice,setproductPrice]=useState('');
+
 
 const createProduct = async() => {
     if (!productName || !productDescription || !productPrice) {
@@ -52,14 +56,9 @@ const createProduct = async() => {
             placeholder="Precio del Producto"
             onChangeText={(value) => setproductPrice(value)}
             value={productPrice}
-            
             />
 
-            <Text style={styles.title}>Selecciona una imagen</Text>
-            <Image
-            style={styles.image}
-            source={require('../../assets/product.png')}
-            />
+            
 
             <Pressable onPress={createProduct} style={styles.button}>
                 <Text style={styles.textButton}>Crear Producto</Text>
@@ -69,6 +68,7 @@ const createProduct = async() => {
 
     )
 }
+
 
     const styles = StyleSheet.create({
         container: {
@@ -98,10 +98,6 @@ const createProduct = async() => {
             borderRadius: 5,
             borderColor: "#02CCFF",
             padding: 10,
-        },
-        image: {
-            width: 180,
-            height: 180,
         },
         button: {
             marginTop: 30,

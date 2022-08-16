@@ -13,7 +13,7 @@ export default function Login(props) {
     const login = () => {
         
         
-          navigation.navigate("Main")
+          navigation.navigate("Test")
     }
 
     return (
