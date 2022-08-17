@@ -1,19 +1,33 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Form } from "react-native";
 import TabNavigation from "../navigation/TabNavigation";
 //Import para inicio de sesion
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 import { autentication } from "../config/FireBase";
 
 export default function Login(props) {
-    const {navigation} = props;
+    const {navigation} = props.navigation;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+
+
 //Clase para ingresar validando los usuarios y las contraseñas
+
     const login = () => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
         
-        
-          navigation.navigate("Test")
     }
 
     return (
@@ -23,6 +37,7 @@ export default function Login(props) {
                 source={require('../../assets/logo.png')}
             />
             <Text style={styles.title}>Compra Fácil y Rápido</Text>
+            <Form onSub>
             <TextInput
                 style={styles.input}
                 placeholder="Correo Electrónico"
@@ -36,6 +51,8 @@ export default function Login(props) {
                 secureTextEntry={true}
                 value={password}
             />
+            </Form>
+            
             <Pressable
                 onPress={login}
                 style={styles.button}

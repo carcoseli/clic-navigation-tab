@@ -15,6 +15,7 @@ class FileUpload extends Component{
                 <br/>
                 <input type={File} onChange={this.props.onUpload}/>
                 <br/>
+                <img width={320}
             </div>
         )
     }
