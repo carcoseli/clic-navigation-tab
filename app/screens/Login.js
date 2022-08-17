@@ -16,6 +16,7 @@ export default function Login(props) {
   const { navigate } = props.navigation;
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  
 
   const login = () => {
     if (!email) {
@@ -28,6 +29,8 @@ export default function Login(props) {
           // Signed in
           const user = userCredential.user;
           Alert.alert("Ingreso exitoso");
+          setEmail("");
+          setPassword("");
           navigate("Main");
           // ...
         })
@@ -45,6 +48,8 @@ export default function Login(props) {
         });
     }
   };
+
+  
 
   return (
     <View style={styles.container}>
