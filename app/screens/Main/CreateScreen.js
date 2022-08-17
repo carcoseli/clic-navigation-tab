@@ -7,10 +7,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { async } from '@firebase/util';
 import { db } from '../../config/firebase';
 
+
+
+
+
 export default function CreateScreen() {
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(null);
+    const [image, setImage] = useState(null)
+   
 
     const createProduct = async () => {
         if (!productName || !price || !description) {
@@ -27,6 +33,9 @@ export default function CreateScreen() {
             //NativeModules.DevSettings.reload();
         }
     };
+
+
+
 
     return (
         <View style={styles.container}>
@@ -55,7 +64,7 @@ export default function CreateScreen() {
                 style={styles.image}
                 source={require('../../../assets/noPicture.png')}
             />
-            <Pressable onPress={ (createProduct) } style={styles.button}>
+            <Pressable onPress={(createProduct)} style={styles.button}>
 
                 <Text style={styles.label}>Crear Producto</Text>
             </Pressable>
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
     },
     label: {
         color: "#FFF",
-        backgroundColor:"#02CCFF",
+        backgroundColor: "#02CCFF",
         fontSize: 18,
         fontWeight: "bold",
     },
