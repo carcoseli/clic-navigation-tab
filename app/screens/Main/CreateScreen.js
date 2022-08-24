@@ -4,12 +4,7 @@ import { idGenerator } from '../../../utils/IdGenerator';
 import { TextInput } from 'react-native-gesture-handler';
 import { ImageBackground, NativeModules } from 'react-native-web';
 import { doc, setDoc } from "firebase/firestore";
-import { async } from '@firebase/util';
 import { db } from '../../config/firebase';
-
-
-
-
 
 export default function CreateScreen() {
     const [productName, setProductName] = useState('');
@@ -29,7 +24,7 @@ export default function CreateScreen() {
                 description: description,
                 price: price
             });
-            console.log("creadacorrecta")
+            console.log("Creada correcta")
             //NativeModules.DevSettings.reload();
         }
     };
