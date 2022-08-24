@@ -30,7 +30,7 @@ export default function Login(props) {
           const user = userCredential.user;
           Alert.alert("Ingreso exitoso");
           setEmail("");
-          setPassword("");
+          setPassword("");  
           navigate("Main");
           // ...
         })
