@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, Pressable, Form } from "react-native";
 import TabNavigation from "../navigation/TabNavigation";
 //Import para inicio de sesion
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { FirebaseApp } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { autentication } from "../config/FireBase";
 
 export default function Login(props) {
@@ -14,21 +13,36 @@ export default function Login(props) {
 
 //Clase para ingresar validando los usuarios y las contraseñas
 
-    const login = () => {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
+const login = () => {
+    if (!email) {
+      Alert.alert("Correo electrónico es requerido");
+    } else if (!password) {
+      Alert.alert("La contraseña es requerida");
+    } else {
+      signInWithEmailAndPassword(authentication, email, password)
         .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            
-            // ...
+          // Signed in
+          const user = userCredential.user;
+          Alert.alert("Ingreso exitoso");
+          setEmail("");
+          setPassword("");
+          navigate("Main");
+          // ...
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if(errorCode=='auth/user-not-found'){
+            Alert.alert('Usuario no encotrado');
+          }else if(errorCode=='auth/wrong-password'){
+            Alert.alert('Contraseña incorrecta');
+          }
+
+          
+          // ..
         });
-        
     }
+  };
 
     return (
         <View style={styles.container}>
@@ -37,7 +51,6 @@ export default function Login(props) {
                 source={require('../../assets/logo.png')}
             />
             <Text style={styles.title}>Compra Fácil y Rápido</Text>
-            <Form onSub>
             <TextInput
                 style={styles.input}
                 placeholder="Correo Electrónico"
@@ -51,7 +64,6 @@ export default function Login(props) {
                 secureTextEntry={true}
                 value={password}
             />
-            </Form>
             
             <Pressable
                 onPress={login}
