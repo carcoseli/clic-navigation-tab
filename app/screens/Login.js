@@ -1,14 +1,43 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert} from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../config/firebase";
 
 export default function Login({navigation}) {
+
    
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
         
-        navigation.navigate("Main");
+        signInWithEmailAndPassword(authentication, email, password)
+
+            .then((userCredential) => {
+
+                // Signed in
+
+                const user = userCredential.user;
+
+                // ...
+
+       
+
+                navigation.navigate('Main');
+
+                Alert.alert("Acceso permitido");
+
+            })
+
+            .catch((error) => {
+
+                const errorCode = error.code;
+
+                const errorMessage = error.message;
+
+                Alert.alert("Gmail o contraseña incorrecto");
+
+            });
     }
 
     return (
