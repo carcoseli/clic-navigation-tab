@@ -6,52 +6,11 @@ import ComputerScreen from '../screens/Main/ComputerScreen';
 import SearchScreen from '../screens/Main/SearchScreen';
 import CartScreen from '../screens/Main/CartScreen';
 import AddcircleScreen from '../screens/Main/AddcircleScreen';
+import HeartScreen from '../screens/Main/HeartScreen';
+import PersonScreen from '../screens/Main/PersonScreen';
 const Tab = createBottomTabNavigator();
-export default function TabNavigation() {
-    function ComputerScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Computer!</Text>
-            </View>
-        );
-    }
-    function SearchScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Buscar!</Text>
-            </View>
-        );
-    }
 
-    function HeartScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Hear!</Text>
-            </View>
-        );
-    }
-    function CartScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Cart!</Text>
-            </View>
-        );
-    }
-    function AddcircleScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Addcircle!</Text>
-            </View>
-        );
-    }
-    
-    function PersonScreen() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Person!</Text>
-            </View>
-        );
-    }
+export default function TabNavigation() {
     return (
 
         <Tab.Navigator
@@ -91,4 +50,4 @@ export default function TabNavigation() {
         </Tab.Navigator>
 
     )
-}
+        }
