@@ -1,51 +1,61 @@
-import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import HomeScreen from "../screens/HomeScreen";
-import Search from "../screens/Search";
-import Favorites from "../screens/Favorites";
-import Cart from "../screens/Cart";
-import Add from "../screens/Add";
-import UserProfile from "../screens/UserProfile";
+import * as React from "react";
+import { Text, View } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "../screens/Main/HomeScreen";
+import SettingsScreen from "../screens/Main/SettingsScreen";
+import SearchScreen from "../screens/Main/SearchScreen";
+import HealthScreen from "../screens/Main/HealthScreen";
+import ShoppingScreen from "../screens/Main/ShoppingScreen";
+import UserProfileScreen from "../screens/Main/UserProfileScreen";
+import AddScreen from "../screens/Main/AddScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-        if (route.name === 'Home') {
-          iconName = focused ? 'laptop': 'laptop-outline';
-        } else if (route.name === 'Search') {
-          iconName = focused ? 'search' : 'search-outline';
-        }else if (route.name === 'Favorites') {
-          iconName = focused ? 'heart' : 'heart-outline';
-        }else if (route.name === 'Cart') {
-          iconName = focused ? 'cart' : 'cart-outline';
-        }else if (route.name === 'Add') {
-          iconName = focused ? 'add' : 'add-outline';
-        }else if (route.name === 'UserProfile') {
-          iconName = focused ? 'person' : 'person-outline';
-        }
+          switch (route.name) {
+            case "Home":
+              iconName = focused ? 'laptop': 'laptop-outline';
+              break;
+            case "Add":
+              iconName = focused ? 'add' : 'add-outline';
+              break;
+            case "Search":
+              iconName = focused ? 'search' : 'search-outline';
+              break;
+            case "Profile":
+              iconName = focused ? 'person' : 'person-outline';
+              break;
+            case "Health":
+              iconName = focused ? 'heart' : 'heart-outline';
+              break;
+            case "Shopping":
+              iconName = focused ? 'cart' : 'cart-outline';
+              break;
 
-        // You can return any component that you like here!
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: 'skyblue',
-      tabBarInactiveTintColor: 'gray',
-    })}
-  >
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Search" component={Search} />
-    <Tab.Screen name="Favorites" component={Favorites} />
-    <Tab.Screen name="Cart" component={Cart} />
-    <Tab.Screen name="Add" component={Add} />
-    <Tab.Screen name="UserProfile" component={UserProfile} />
-  </Tab.Navigator>
+            default:
+              break;
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "#02CCFF",
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Health" component={HealthScreen} />
+      <Tab.Screen name="Shopping" component={ShoppingScreen} />
+      <Tab.Screen name="Add" component={AddScreen} />
+      <Tab.Screen name="Profile" component={UserProfileScreen} />
+    </Tab.Navigator>
   );
 }

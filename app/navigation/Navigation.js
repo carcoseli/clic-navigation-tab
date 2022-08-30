@@ -4,10 +4,29 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import TabNavigation from './TabNavigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { authentication } from '../config/firebase';
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
+
+  const [isSession, setIsSession] = React.useState(false);
+
+React.useEffect(() => {
+const unsubscribe = onAuthStateChanged(authentication, (user) => {
+if (user) {
+const uid = user.uid;
+setIsSession(true);
+} else {
+setIsSession(false);
+}
+});
+
+return () => {
+unsubscribe();
+};
+}, []);
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
