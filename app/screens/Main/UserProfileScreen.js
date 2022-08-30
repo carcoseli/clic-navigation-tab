@@ -1,9 +1,17 @@
-import { View, Text,Pressable,StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text,Pressable,StyleSheet } from 'react-native';
+import React from 'react';
+import { authentication } from "../../config/firebase";
 
 export default function UserProfileScreen(props) {
   const { navigate } = props.navigation;
   const closeSession=()=>{
+    authentication.signOut()
+    .then(function(){
+      console.log("Sesión Cerrada");
+    })
+    .catch(function(error){
+      console.log(error);
+    })
     navigate("Login");
   }
   
