@@ -7,10 +7,11 @@ export default function Login(props) {
     const { navigate } = props.navigation;
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-    const [activo, setActivo]= useState(false);
+    //const [activo, setActivo] = useState(false);
 
-    validarActivo();//funcion para validad loguin activo o inactivo
-    if(activo){//validad si esta activo o inactivo
+    //validarActivo();//funcion para validad loguin activo o inactivo
+    //if (activo) {//validad si esta activo o inactivo
+    
     const login = () => {
         if (!email) {
             Alert.alert("Correo electronico es requerido")
@@ -69,15 +70,15 @@ export default function Login(props) {
         </View>
     )
     //validad loguin activo o inactivo
-    }else{return{activo};}
+    /*} else{ return (activo); }
 
     function validarActivo() {
-        onAuthStateChanged(autentication,(user)=>{
+        onAuthStateChanged(autentication, (user) => {
             if (user) {
-                navigate("Main");               
-            }else{setActivo(true)}
-        });       
-    }
+                navigate("Main");
+            } else { setActivo(true) }
+        });
+    }*/
 
 };
 
