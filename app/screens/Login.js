@@ -11,6 +11,7 @@ export default function Login(props) {
   
 
   const login = () => {
+    
     if (!email) {
       Alert.alert("Correo electrónico es requerido");
     } else if (!password) {
@@ -34,9 +35,6 @@ export default function Login(props) {
           }else if(errorCode=='auth/wrong-password'){
             Alert.alert('Contraseña incorrecta');
           }
-
-          
-          // ..
         });
     }
   };
@@ -66,7 +64,7 @@ export default function Login(props) {
       <Pressable onPress={login} style={styles.button}>
         <Text style={styles.textButton}>Iniciar Sesión</Text>
       </Pressable>
-      <Text onPress={() => navigation.navigate("Register")} style={styles.link}>
+      <Text onPress={() => navigate("Register")} style={styles.link}>
         ¿No tienes una cuenta?
       </Text>
     </View>

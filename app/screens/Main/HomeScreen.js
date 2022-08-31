@@ -1,17 +1,20 @@
-import { View, Text, SafeAreaView, StyleSheet, FlatList, Image } from 'react-native'
-import React, { useEffect } from 'react'
+import { View, Text, SafeAreaView, StyleSheet, FlatList, Image, Modal } from 'react-native'
+import React, { useEffect, useState} from 'react'
 import { collection, getDocs } from "firebase/firestore"; //Import de ..Primeros pasos con Cloud Firestore
 import { db } from '../../config/firebase';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { TextInput } from 'react-native-gesture-handler';
  
 export default function HomeScreen() {
  
     //Para creacion de productos
     //Hooks de estado
-    const [productList, setProductList] = React.useState([]);
-    const [id, setId] = React.useState('');
-    const [productName, setProductName] = React.useState('');
-    const [productPrice, setProductPrice] = React.useState('');
-    const [productDescription, setProductDescription] = React.useState('');
+    const [productList, setProductList] = useState([]);
+    const [id, setId] = useState('');
+    const [productName, setProductName] = useState('');
+    const [productPrice, setProductPrice] = useState('');
+    const [productDescription, setProductDescription] = useState('');
+    const [modalEdit, setmodalEdit] = useState(false);
  
     //Hooks de efecto: ayuda a visualizar lo primero de la app
     useEffect(() => { //--> useEffectSnippet
@@ -47,6 +50,16 @@ export default function HomeScreen() {
             <Text style={styles.textDescription}>{item.productDescription}</Text>
             <Text style={styles.textPrice}>${item.productPrice}</Text>
           </View>
+
+          <View style={styles.iconView}>
+            <Ionicons name="create-outline" size={30} style={styles.icon} onPress={function openEditModal(){
+              setmodalEdit(true);
+              setId(item.id);
+              setProductDescription(item.productDescription);
+              setProductName(item.setProductName);
+              setProductPrice(item.setProductPrice)
+            }}></Ionicons>
+          </View>
  
         </View>
       )
@@ -67,6 +80,35 @@ export default function HomeScreen() {
             <Text style={styles.textNOproducts}>No existen productos</Text>
           )
         }
+        <Modal style={styles.modalView} animationType='slide' transparent={true} visible={modalEdit} onRequestClose={()=>{setmodalEdit}} >
+          <View style={styles.centerView}></View>
+          <View style={styles.modaView}>
+            <Text style={styles.modalText}>Editar producto</Text>
+            <Text style={styles.modalText}>id:{id} </Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(value) => setProductName(value)}
+              value={productName}
+              placeholder="Nombre del producto"
+            ></TextInput>
+            <TextInput
+              style={styles.textArea}
+              onChangeText={(value) => setProductDescription(value)}
+              value={productDescription}
+              placeholder="Descripción"
+              multiline
+              numberOfLines={3}
+            ></TextInput>
+            <TextInput
+              style={styles.input}
+              onChangeText={(value) => setProductPrice(value)}
+              value={productPrice}
+              placeholder="$ Precio"
+            ></TextInput>
+          </View>
+        </Modal>
+
+
       </SafeAreaView>
     )
   }
@@ -74,14 +116,14 @@ export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#c2c2c2',
-      alignItems: 'center',
-      justifyContent: "center",
+      backgroundColor: "#c2c2c2",
+      alignItems: "center",
+      justifyContent: 'center',
     },
     item: {
       flex: 1,
       flexDirection: 'row',
-      backgroundColor: '#fff',
+      backgroundColor: "#fff",
       padding: 10,
       marginTop: 10,
       width: 360,
@@ -89,32 +131,114 @@ export default function HomeScreen() {
       borderRadius: 5
     },
     img: {
-      width: "30%",
+      width: "30%"
     },
     info: {
-      width: "50%",
+      width: "50%"
+    },
+    iconView: {
+      width: "20%",
+      padding: 10
     },
     imageProduct: {
       width: 80,
-      height: 70,
+      height: 70
     },
     textName: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontWeight: "bold"
     },
     textDescription: {
-      fontSize: 18,
+      fontSize: 15,
     },
     textPrice: {
       fontSize: 20,
-      textAlign: 'right',
-      color: "#02ccff",
-      fontWeight: 'bold',
+      textAlign: "right",
+      color: "#02CCFF",
+      fontWeight: "bold"
     },
-    textNOproducts: {
-      color: '#fff',
+    textNoProducts: {
+      color: "#FFF",
       fontSize: 22,
-      fontWeight: 'bold'
+      fontWeight: "bold"
     },
- 
+    icon: {
+      color: "#02CCFF",
+      marginLeft: 20,
+      padding: 1
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
+    button: {
+      borderRadius: 5,
+      padding: 10,
+      elevation: 2,
+      marginTop: 10
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    buttonEdit: {
+      backgroundColor: "#02CCFF",
+      marginLeft: 10
+    },
+    buttonDelete: {
+      backgroundColor: "#CB4335",
+      marginLeft: 10
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+    },
+    input: {
+      marginTop: 10,
+      borderWidth: 2,
+      width: 340,
+      height: 50,
+      borderRadius: 5,
+      borderColor: '#02CCFF',
+      padding: 10,
+    },
+    textArea: {
+      marginTop: 10,
+      borderWidth: 2,
+      width: 340,
+      height: 100,
+      borderRadius: 5,
+      borderColor: '#02CCFF',
+      padding: 10,
+    },
+    modalButtons: {
+      flexDirection: "row",
+      marginTop: 5,
+  
+    }
+  
   });
