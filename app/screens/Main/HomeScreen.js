@@ -8,7 +8,7 @@ import {
   Modal,
   TextInput,
   Pressable,
-  Alert
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
@@ -27,9 +27,6 @@ export default function HomeScreen(props) {
   const [modalEdit, setModalEdit] = useState(false);
 
   //Hooks de efecto: ayuda a visualizar lo primero de la app
-  const load= async()=>{
-    navigate.replace('Main');
-  }
   useEffect(() => {
     let list = [];
 
@@ -44,20 +41,17 @@ export default function HomeScreen(props) {
     getProducts();
   }, []);
 
-  const editProduct= async()=>{
+  const editProduct = async () => {
+    const productRef = doc(db, "products", id);
 
-const productRef = doc(db, "products", id);
-
-// Set the "capital" field of the city 'DC'
-await updateDoc(productRef, {
-  productName: productName,
-  description: description,
-  price: price
-});
-Alert.alert('Producto modificado');
-//navigate("Main");
-load();
-  }
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(productRef, {
+      productName: productName,
+      description: description,
+      price: price,
+    });
+    Alert.alert("Producto modificado");
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -113,47 +107,48 @@ load();
         }}
       >
         <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Editar producto</Text>
-          <Text style={styles.modalText}>id: {id}</Text>
-          <TextInput
-            style={styles.textName}
-            onChangeText={(value) => setProductName(value)}
-            value={productName}
-            placeholder="Nombre del producto"
-          ></TextInput>
-          <TextInput
-            style={styles.textDescription}
-            onChangeText={(value) => setDescription(value)}
-            value={description}
-            placeholder="Descripción"
-            multiline
-            numberOfLines={3}
-          ></TextInput>
-          <TextInput
-          keyboardType="numeric"
-            style={styles.textPrice}
-            onChangeText={(value) => setPrice(value)}
-            value={price}
-            placeholder="$ Precio"
-          ></TextInput>
-          
-        <View style={styles.modalButtons}>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalEdit(!modalEdit)}
-          >
-            <Text style={styles.textStyle}>Cerrar</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, styles.buttonEdit]}
-            onPress={()=>{editProduct();
-            }}
-          >
-            <Text style={styles.textStyle}>Editar</Text>
-          </Pressable>
-        </View>
-        </View>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Editar producto</Text>
+            <Text style={styles.modalText}>id: {id}</Text>
+            <TextInput
+              style={styles.textName}
+              onChangeText={(value) => setProductName(value)}
+              value={productName}
+              placeholder="Nombre del producto"
+            ></TextInput>
+            <TextInput
+              style={styles.textDescription}
+              onChangeText={(value) => setDescription(value)}
+              value={description}
+              placeholder="Descripción"
+              multiline
+              numberOfLines={3}
+            ></TextInput>
+            <TextInput
+              keyboardType="numeric"
+              style={styles.textPrice}
+              onChangeText={(value) => setPrice(value)}
+              value={price}
+              placeholder="$ Precio"
+            ></TextInput>
+
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalEdit(!modalEdit)}
+              >
+                <Text style={styles.textStyle}>Cerrar</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonEdit]}
+                onPress={() => {
+                  editProduct();
+                }}
+              >
+                <Text style={styles.textStyle}>Editar</Text>
+              </Pressable>
+            </View>
+          </View>
         </View>
       </Modal>
     </SafeAreaView>
@@ -203,7 +198,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     color: "#02CCFF",
     fontWeight: "bold",
-    width:80
+    width: 80,
   },
   textNoProducts: {
     color: "#FFF",
@@ -235,8 +230,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height:350,
-    width:300,
+    height: 350,
+    width: 300,
   },
   button: {
     borderRadius: 5,
