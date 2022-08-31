@@ -20,9 +20,9 @@ export default function Login(props) {
 
   const [activeUserEmail,SeActiveUserEmail]=useState('');
 
-  
+  /*
   userStatus();
-  if(activo){
+  if(activo){*/
     const login = () => {
       if (!email) {
         Alert.alert("Correo electrónico es requerido");
@@ -84,7 +84,7 @@ export default function Login(props) {
         ¿No tienes una cuenta?
       </Text>
     </View>
-  );
+  );/*
   }else{
     return (
       <View style={styles.container}>
@@ -101,7 +101,7 @@ export default function Login(props) {
       </View>
     );
   }
-  function userStatus(){
+ /* function userStatus(){
     onAuthStateChanged(authentication, (user) => {
       if (user) {
         console.log("Activo:",user.email);
@@ -123,7 +123,7 @@ export default function Login(props) {
       console.log(error);
     })
     navigate("Login");
-  }
+  }*/
 
 
 }
