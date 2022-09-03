@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert} from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert, ImageBackground} from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { authentication } from "../config/firebase";
+
 export default function Login({ navigation }) {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const image = { uri: "https://i.pinimg.com/564x/1c/5b/76/1c5b765c84ee64adc6ba0d2706db7916.jpg" };
 
     const login = () => {
         //aqui realiza la implementacion de firebase
@@ -35,11 +37,12 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.image} alignItems='center'>
             <Image
                 style={styles.tinyLogo}
                 source={require('../../assets/logo.png')}
             />
-            <Text style={styles.title}>Compra Fácil y Rápido</Text>
+            <Text style={styles.title}>                   Por un Ecuador mas verde y limpio</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Correo Electrónico"
@@ -60,8 +63,10 @@ export default function Login({ navigation }) {
                 <Text style={styles.textButton}>Iniciar Sesión</Text>
             </Pressable>
             <Text onPress={() => navigation.navigate("Register")}
-                style={styles.link}>¿No tienes una cuenta?</Text>
+                style={styles.link}>                      Deseas Registrate?</Text>
+            </ImageBackground>
         </View>
+
     );
 
 };
@@ -69,36 +74,37 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#adff2f',
         alignItems: 'center',
-        //justifyContent: 'center',
+        justifyContent: 'center',
     },
     tinyLogo: {
-        width: 250,
-        height: 125,
-        marginTop: 100,
-        marginBottom: 30,
+        width: 350,
+        height: 300,
+        marginTop: 0,
+        marginBottom: 0,
     },
     title: {
-        marginBottom: 50,
+        marginBottom: 5,
+        color:'#f5fffa'
     },
     input: {
         marginTop: 20,
         borderWidth: 1,
-        width: 300,
+        width: 360,
         height: 40,
         borderRadius: 20,
-        borderColor: "#02CCFF",
+        borderColor: "#0000cd",
         padding: 10,
+        backgroundColor:"#fdf5e6"
     },
     button: {
-        marginTop: 30,
-        marginBottom: 30,
+        marginTop: 20,
         padding: 10,
-        backgroundColor: "#02CCFF",
+        backgroundColor: "#008000",
         borderRadius: 7,
-        width: 300,
-        height: 40,
+        width: 360,
+        height: 50,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -106,10 +112,17 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 18,
         fontWeight: "bold",
+        alignItems:"center",
+        fontSize: 22,
     },
     link: {
         marginTop: 20,
         color: "#02CCFF",
         fontWeight: "bold",
-    }
+        fontSize: 18,
+    },
+    image: {
+        flex: 1,
+        justifyContent: "center"
+    },
 });
