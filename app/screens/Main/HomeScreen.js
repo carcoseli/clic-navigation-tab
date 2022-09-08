@@ -1,304 +1,157 @@
-import { StyleSheet, Text, View, SafeAreaView, FlatList, Image, Modal, Pressable, TextInput, NativeModules } from "react-native";
-import React from "react";
-import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useState } from "react";
+import { Dimensions, View, Button, Text, StyleSheet, Image, TextInput, Pressable, Alert, ImageBackground, TouchableOpacity } from "react-native";
+import * as RN from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from 'react-native-maps';
+import { mapStyle } from './mapStyle'
 
 
-const HomeScreen = () => {
-  /*const productList = [
-    {
-      productName: 'Mouse',
-      description: 'Mouse Inalámbrico',
-      price: 46,
-    },
-    {
-      productName: 'Mouse',
-      description: 'Mouse Inalámbrico',
-      price: 46,
-    }
-  ]*/
-  const [productList, setProductList] = React.useState([]);
-  const [modalEdit, setModalEdit] = React.useState(false);
-  const [id, setId] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState("");
-
-  React.useEffect(() => {
-    let list = [];
-
-    async function getProducts() {
-
-      const querySnapshot = await getDocs(collection(db, "products"));
-
-      querySnapshot.forEach((doc) => {
-        list.push(doc.data());
-        console.log(doc.id, " => ", doc.data());
-
-      });
-      setProductList(list);
-    }
-    getProducts();
-  }, [])
-
-  const editProduct = async() => {
-    if (!name || !description || !price) {
-      Alert.alert("Todos los campos son obligatorios");
-    } else {
-      const docRef = doc(db, "products", id);
-
-      await updateDoc(docRef, {
-        productName: name,
-        description: description,
-        price: price
-      });
-      //Recargar la pantalla
-      NativeModules.DevSettings.reload();
-    }
-  }
-
-  const deleteProduct = async() => {
-    await deleteDoc(doc(db, "products", id));
-    NativeModules.DevSettings.reload();
-  }
 
 
-  const renderItem = ({ item }) => (
-    <View style={styles.item} key={item.id}>
-      <View style={styles.img}>
-        <Image
-          style={styles.imageProduct}
-          source={require('../../../assets/item.png')}
-        />
-      </View>
-      <View style={styles.info}>
-        <Text style={styles.textName}>{item.productName}</Text>
-        <Text style={styles.textDescription}>{item.description}</Text>
-        <Text style={styles.textPrice}>$ {item.price}</Text>
-      </View>
-      <View style={styles.iconView}>
-        <Ionicons name={"pencil"} size={30} style={styles.icon}
-          onPress={function openEditModal() {
-            setModalEdit(true);
-            setId(item.id);
-            setName(item.productName);
-            setDescription(item.description);
-            setPrice(item.price);
-          }}
-        />
-        <Ionicons name={"cart"} size={30} style={styles.icon} />
+export default function HomeScreen() {
 
-      </View>
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+            <RN.ScrollView contentContainerStyle={{ paddingBottom: 100 }} style={styles.inicio}>
+                <RN.Text style={styles.title}>Quienes Somos</RN.Text>
+                <RN.Text style={styles.textSomos}>
+                    Somos un vivero artesanal con varios años de experiencia nos dedicamos al cultivo y venta de plantas ornamentales, frutales, medicinales, forestales, macetas, abonos orgánicos, colocación de césped, diseño y decoración de jardines.</RN.Text>
+                <RN.Text style={styles.textSomos}>
+                    Vivero Orquídeas del Ilalo dispone de un local cautivante, amplio y propicio para el desarrollo de su ecológica actividad.
+                </RN.Text>
+                <RN.Image
+                    style={styles.tinyLogo}
+                    source={require('../../../assets/logohome.png')}
+                />
 
-  return (
-    //Scroll
-    <SafeAreaView style={styles.container}>
-      {
-        productList.length > 0 ? (
-          <FlatList
-            //Quemar los datos
-            data={productList}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        ) : (
-          <Text style={styles.textNoProducts}>No existen productos</Text>
-        )
-      }
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalEdit}
-        onRequestClose={() => {
+                <RN.Text style={styles.title}>Plantas Frutales</RN.Text>
+                <RN.Text style={styles.textSomos}>Se define como árboles frutales o plantas frutales, a todas aquellas plantas con flores que producen una fruta que se consumen.</RN.Text>
+                <RN.Image
+                    style={styles.tinyLogo}
+                    source={require('../../../assets/frut.png')}
+                />
+                <RN.Text style={styles.title}>Plantas Ornamentales</RN.Text>
+                <RN.Text style={styles.textSomos}>Aquella que se cultiva y se comercializa con propósitos decorativos por sus características estéticas</RN.Text>
+                <RN.Image
+                    style={styles.tinyLogo}
+                    source={require('../../../assets/ornam.jpg')}
+                />
+                <RN.Text style={styles.title}>Plantas Medicinales</RN.Text>
+                <RN.Text style={styles.textSomos}>Aquellas plantas que pueden utilizarse enteras o por partes específicas para tratar enfermedades de personas.</RN.Text>
+                <RN.Image
+                    style={styles.tinyLogo}
+                    source={require('../../../assets/medic.png')}
+                />
+                <RN.Text style={styles.title}>Por un Ecuador mas verde.</RN.Text>
+                <RN.Text style={styles.title}>Localizacion                Telefonos</RN.Text>
+                <RN.Text style={styles.textSomos}>
+                    --Ruta Viva                                                 +593 86770803
+                    --Quito 170157                                          +593 39137992
+                    --0.210793, -78.457627
 
-          setModalEdit(!modalEdit);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Editar Producto</Text>
-            <Text style={styles.modalText}>Id: {id}</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={(value) => setName(value)}
-              value={name}
-              placeholder="Nombre del producto"
-            />
-            <TextInput
-              style={styles.textArea}
-              onChangeText={(value) => setDescription(value)}
-              value={description}
-              placeholder="Descripción"
-              multiline
-              numberOfLines={3}
-            />
-            <TextInput
-              style={styles.input}
-              onChangeText={(value) => setPrice(value)}
-              value={price}
-              placeholder="$ Precio"
-              keyboardType='decimal-pad'
-            />
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalEdit(!modalEdit)}
-              >
-                <Text style={styles.textStyle}>Cerrar</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonEdit]}
-                onPress={editProduct}
-              >
-                <Text style={styles.textStyle}>Editar</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonDelete]}
-                onPress={deleteProduct}
-              >
-                <Text style={styles.textStyle}>Eliminar</Text>
-              </Pressable>
-            </View>
+                </RN.Text>
+                <RN.Text style={styles.title}>Email</RN.Text>
+                <RN.Text style={styles.textSomos}>
+                    henrydavidllulluna1ba@gmail.com                                        anibal1744@gmail.com
 
-          </View>
+
+                </RN.Text>
+
+                <MapView
+                    customMapStyle={mapStyle}
+                    provider={PROVIDER_GOOGLE}
+                    style={styles.mapStyle}
+                    initialRegion={{
+                        latitude: -0.210755,
+                        longitude: -78.457612,
+                        latitudeDelta: 0.003,
+                        longitudeDelta: 0.003,
+                    }}
+
+                    mapType="standard"
+                >
+                    <Marker
+                        coordinate={{
+                            latitude: -0.210755,
+                            longitude: -78.45761
+                        }}
+                        title="Vivero Orequideas del Ilalo"
+                        description="Abierto de 7:00 am - 17:30 pm"  
+                    />
+
+                </MapView>
+            </RN.ScrollView>
+            <TouchableOpacity
+                style={styles.lok}
+            >
+                <View >
+                    <Image
+                        style={styles.icoWhatsapp}
+                        source={require('../../../assets/Ico-Whatsapp.png')}
+                    />
+                </View>
+            </TouchableOpacity>
         </View>
-      </Modal>
+    );
 
-    </SafeAreaView>
-  );
 };
 
-export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#c2c2c2",
-    alignItems: "center",
-    justifyContent: 'center',
-  },
-  item: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: "#fff",
-    padding: 10,
-    marginTop: 10,
-    width: 360,
-    height: 100,
-    borderRadius: 5
-  },
-  img: {
-    width: "30%"
-  },
-  info: {
-    width: "50%"
-  },
-  iconView: {
-    width: "20%",
-    padding: 10
-  },
-  imageProduct: {
-    width: 80,
-    height: 70
-  },
-  textName: {
-    fontSize: 18,
-    fontWeight: "bold"
-  },
-  textDescription: {
-    fontSize: 15,
-  },
-  textPrice: {
-    fontSize: 20,
-    textAlign: "right",
-    color: "#02CCFF",
-    fontWeight: "bold"
-  },
-  textNoProducts: {
-    color: "#FFF",
-    fontSize: 22,
-    fontWeight: "bold"
-  },
-  icon: {
-    color: "#02CCFF",
-    marginLeft: 20,
-    padding: 1
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
+const styles = RN.StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#eaf4cb'
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    elevation: 2,
-    marginTop: 10
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  buttonEdit: {
-    backgroundColor: "#02CCFF",
-    marginLeft: 10
-  },
-  buttonDelete: {
-    backgroundColor: "#CB4335",
-    marginLeft: 10
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  },
-  input: {
-    marginTop: 10,
-    borderWidth: 2,
-    width: 340,
-    height: 50,
-    borderRadius: 5,
-    borderColor: '#02CCFF',
-    padding: 10,
-  },
-  textArea: {
-    marginTop: 10,
-    borderWidth: 2,
-    width: 340,
-    height: 100,
-    borderRadius: 5,
-    borderColor: '#02CCFF',
-    padding: 10,
-  },
-  modalButtons: {
-    flexDirection: "row",
-    marginTop: 5,
+    icoWhatsapp: {
+        width: 150,
+        height: 150,
+    },
+    lok: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0
 
-  }
+    },
 
+    title: {
+        marginBottom: 5,
+        color: '#808000',
+
+        height: 50,
+        marginTop: 0,
+        width: 360,
+        padding: 12,
+        borderColor: "#90ee90",
+        borderRadius: 20,
+        fontSize: 22
+    },
+    textSomos: {
+        width: 340,
+        backgroundColor: '#eaf4cb',
+        borderColor: "#00ffff",
+        borderRadius: 0,
+        marginTop: 5,
+        alignSelf: 'center'
+
+    },
+
+    image: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    tinyLogo: {
+        width: 150,
+        height: 160,
+        marginTop: 20,
+        marginBottom: 0,
+        alignSelf: 'center',
+        borderRadius: 200,
+
+    },
+    mapStyle: {
+        width: Dimensions.get('window'),
+        height: Dimensions.get('window'),
+        width: 250,
+        height: 500,
+        alignSelf: 'center',
+
+    },
 });

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert, ImageBackgr
 
 export default function UserScreen() {
 
-    const image = { uri: "https://i.pinimg.com/564x/b6/37/a3/b637a3291ece36bcde89c3991be635f4.jpg" };
+    const image = { uri: "https://i.pinimg.com/236x/ae/ef/88/aeef885b84eff30027ae7baacd4b215d.jpg" };
 
     return (
         <View style={styles.container}>

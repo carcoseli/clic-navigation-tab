@@ -26,9 +26,9 @@
         "backgroundColor": "##90ee90"
       }
     },
+    
     "web": {
       "favicon": "./assets/favicon.png"
     }
-    
   }
 }
