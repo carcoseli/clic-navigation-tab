@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Pressable,Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable,Alert,Button } from 'react-native'
 import React from 'react'
 import { idGenerator } from '../../utlis/idGenerator';
 import { doc, setDoc } from "firebase/firestore";
@@ -53,9 +53,7 @@ export default function AddcircleScreen() {
         <Text style={styles.label}>Crear Producto</Text>
 
       </Pressable>
-
-
-    </View>
+           </View>
   )
 }
 

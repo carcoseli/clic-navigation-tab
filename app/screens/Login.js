@@ -95,14 +95,14 @@ const styles = StyleSheet.create({
         width: 300,
         height: 40,
         borderRadius: 20,
-        borderColor: "#02CCFF",
+        borderColor: "#000000",
         padding: 10,
     },
     button: {
         marginTop: 30,
         marginBottom: 30,
         padding: 10,
-        backgroundColor: "#02CCFF",
+        backgroundColor: "#000000",
         borderRadius: 7,
         width: 300,
         height: 40,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     },
     link: {
         marginTop:20,
-        color:"#02CCFF",
+        color:"#000000",
         fontWeight: "bold",
     }
 });

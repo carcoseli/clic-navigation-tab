@@ -22,7 +22,7 @@ export default function Register(props) {
                     // Signed in
                     const user = userCredential.user;
                     Alert.alert("Bienvenido");
-                    navigate("Login");
+                    navigate("Main");
                     // ...
                 })
                 .catch((error) => {
@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
         width: 300,
         height: 40,
         borderRadius: 20,
-        borderColor: "#02CCFF",
+        borderColor: "#000000",
         padding: 10,
     },
     button: {
         marginTop: 20,
         padding: 10,
-        backgroundColor: "#02CCFF",
+        backgroundColor: "#000000",
         borderRadius: 7,
         width: 300,
         height: 40,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     link: {
         marginTop: 20,
-        color: "#02CCFF",
+        color: "#000000",
         fontWeight: "bold",
     }
 }
