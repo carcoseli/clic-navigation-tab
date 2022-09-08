@@ -1,14 +1,43 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, Pressable, Alert} from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication } from "../config/firebase";
 
-export default function Login(props) {
-    const {navigation} = props;
+export default function Login({navigation}) {
+
+   
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     const login = () => {
         
-        console.log(props);
+        signInWithEmailAndPassword(authentication, email, password)
+
+            .then((userCredential) => {
+
+                // Signed in
+
+                const user = userCredential.user;
+
+                // ...
+
+       
+
+                navigation.navigate('Main');
+
+                Alert.alert("Acceso permitido");
+
+            })
+
+            .catch((error) => {
+
+                const errorCode = error.code;
+
+                const errorMessage = error.message;
+
+                Alert.alert("Gmail o contraseña incorrecto");
+
+            });
     }
 
     return (
@@ -66,14 +95,14 @@ const styles = StyleSheet.create({
         width: 300,
         height: 40,
         borderRadius: 20,
-        borderColor: "#02CCFF",
+        borderColor: "#000000",
         padding: 10,
     },
     button: {
         marginTop: 30,
         marginBottom: 30,
         padding: 10,
-        backgroundColor: "#02CCFF",
+        backgroundColor: "#000000",
         borderRadius: 7,
         width: 300,
         height: 40,
@@ -87,7 +116,7 @@ const styles = StyleSheet.create({
     },
     link: {
         marginTop:20,
-        color:"#02CCFF",
+        color:"#000000",
         fontWeight: "bold",
     }
 });
